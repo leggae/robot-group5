@@ -1,0 +1,184 @@
+ข้อ3
+
+/*
+  Blink
+  Turns on an LED on for one second, then off for one second, repeatedly.
+ 
+  This example code is in the public domain.
+ */
+ 
+// Pin 13 has an LED connected on most Arduino boards.
+// give it a name:
+int ledPin = 13;
+int inPin = 19;
+int val = 0;
+
+// the setup routine runs once when you press reset:
+void setup() {                
+  // initialize the digital pin as an output.
+  pinMode(ledPin, OUTPUT);
+  pinMode(inPin, INPUT);  
+}
+
+// the loop routine runs over and over again forever:
+void loop() {
+  val = digitalRead(inPin);
+  digitalWrite(ledPin, val);
+  
+}
+
+
+
+ข้อ 4
+4.1 เดินหน้าถอยหลัง   
+
+
+void setup() {
+  pinMode(3,OUTPUT);
+  pinMode(5,OUTPUT);
+  pinMode(6,OUTPUT);
+  pinMode(9,OUTPUT);
+}
+void Forward() {
+  digitalWrite(3,HIGH);
+  digitalWrite(5,LOW);
+  digitalWrite(6,HIGH);
+  digitalWrite(9,LOW);
+}
+void Backward (){
+  digitalWrite(3,LOW);
+  digitalWrite(5,HIGH);
+  digitalWrite(6,LOW);
+  digitalWrite(9,HIGH);
+}
+void loop () {
+  Forward();
+  delay(1000);
+  Backward();
+  delay(1000);
+}
+
+
+4.2เดินเป็นวงกลม 
+.
+
+void setup(){
+    pinMode(3,OUTPUT);
+    pinMode(5,OUTPUT);
+    pinMode(6,OUTPUT);
+    pinMode(9,OUTPUT);
+    pinMode(2,INPUT);
+    pinMode(4,INPUT);
+    
+}
+void Forward (int Lspeed,int Rspeed) {
+  analogWrite(3,Lspeed);
+  digitalWrite(5,LOW);
+  analogWrite(6,Rspeed);
+  digitalWrite(9,LOW);
+}
+void Motor_Stop () {
+  digitalWrite(5,LOW);
+  digitalWrite(3,LOW);
+  digitalWrite(6,LOW);
+  digitalWrite(9,LOW);
+}
+void loop(){
+  Forward(80,255);
+ if(digitalRead(4)==0){
+  Motor_Stop();
+ while(1);
+ }
+} 
+    
+
+
+4.3เดินอิสระ
+
+void setup(){
+    pinMode(3,OUTPUT);
+    pinMode(5,OUTPUT);
+    pinMode(6,OUTPUT);
+    pinMode(9,OUTPUT);
+    pinMode(2,INPUT);
+    pinMode(4,INPUT);
+}
+void Forward (int speed) {
+  analogWrite(3,speed);
+  digitalWrite(5,LOW);
+  analogWrite(6,speed);
+  digitalWrite(9,LOW);
+}
+void Spin_Left (int speed) {
+  analogWrite(5,speed);
+  digitalWrite(3,LOW);
+  analogWrite(6,speed);
+  digitalWrite(9,LOW);
+}
+void Spin_Right (int speed) {
+  analogWrite(3,speed);
+  digitalWrite(5,LOW);
+  analogWrite(9,speed);
+  digitalWrite(6,LOW);
+}
+void loop () {
+  if (digitalRead(2)==0){
+    while(1){
+      Forward(125);
+      delay(900);
+      Spin_Left(125);
+      delay(400);
+    }
+  }
+  if (digitalRead(4)==0){
+    while(1){
+      Forward(125);
+      delay(900);
+      Spin_Left(125);
+      delay(400);
+    }
+  }
+}
+
+
+
+5.
+
+#include <SoftwareSerial.h>
+#define rxPin 18
+#define txPin 18
+SoftwareSerial MySerial = SoftwareSerial (rxPin,txPin);
+
+void setup (){
+  digitalWrite(txPin,HIGH);
+  delay(1000);
+  pinMode(txPin,OUTPUT);
+  MySerial.begin(9600);
+  delay(1000);
+}
+void loop (){
+  MySerial.write(0xFE);
+  MySerial.write(0x80);
+  MySerial.print("Matus Thumparnichsa");
+  MySerial.write(0xFE);
+  MySerial.write(0xC0);
+  MySerial.print("5710742049");
+  while(1);
+}
+  
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
